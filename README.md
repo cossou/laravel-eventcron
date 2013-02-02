@@ -124,4 +124,4 @@ Max number of events to fire in one run (set it to a lower number if you don't w
 	
 ##Questions? Problems?
 
-Drop me a line at <cossou@gmail.com>.
+Drop me a line at <cossou@gmail.com> or [@cossou](https://twitter.com/cossou)
