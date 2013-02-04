@@ -16,9 +16,9 @@ class EventCron_Init {
 
 			$table->increments('id');
 			$table->string('queue', 30)->index();
-			$table->timestamp('date');
+			$table->date('date');
 			
-			$table->timestamp('runned_at');
+			$table->date('runned_at');
 
 			$table->string('started_at', 18);
 			$table->string('ended_at',   18);
