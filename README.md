@@ -103,6 +103,11 @@ Flush events from a queue:
 ```php
 	EventCron::flushDB($name = "string");
 ```
+Flush all the events:
+```php
+	EventCron::flushAllDB();
+```
+
 ## Configurations
 
 __config.php__ (eventcron/config/config.php)
