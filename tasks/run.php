@@ -21,6 +21,6 @@ class Eventcron_Run_Task extends Task
 	public function runall() 
 	{
 		Bundle::start('eventcron');
- 		EventCron::flushDB();
+ 		EventCron::flushAllDB();
 	}
 }
