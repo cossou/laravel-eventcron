@@ -14,9 +14,9 @@ It's an extension of the original [_Laravel Event_](http://laravel.com/docs/even
 __*Example 1:*__ 
 
 You want to schedule an e-mail to an user 24h after the registration.  
-
+```php
 	EventCron::queueDB('email24', array('user_id' => 1, 'message' => 'welcome'), date("Y-m-d H:i:s", strtotime("+24 hours")));
-
+```
 
 __*Example 2:*__ 
 
@@ -33,7 +33,7 @@ __Note:__ this bundle does not attempt to be a replacement for Workers. You are 
     php artisan bundle:install eventcron
 
 Add it to __application/bundles.php__:
-
+```php
     return array(
         ...
         'eventcron' => array(
@@ -41,16 +41,20 @@ Add it to __application/bundles.php__:
         ),
         ...
     );
-    
+```   
 Now __migrate__ to create the table:
 
 	php artisan migrate eventcron
 
 Now play with it. For example:
-	
+```php	
 	Route::get('addevent', function()
 	{
 		...
+		// In Real time: 
+		// Event::fire('log_something', array('FOOBAR', array('foo' => 'bar')));
+
+		// With EventCron:
 		EventCron::queueDB('log_something', array('FOOBAR', array('foo' => 'bar')));
 		...
 	});
@@ -58,9 +62,10 @@ Now play with it. For example:
 	// The event
 	Event::listen('log_something', function($str, $arr)
 	{
+		// Note: If you use a bundle inside please use Bundle::start('yourbundle');
 		Log::info('str => ' . $str . ' arr => ' . print_r($arr, true));
 	});
-	
+```	
 Setup the CronJob:
 
 	*/1 * * * * root php /var/www/laravel/artisan Eventcron::run log_something --env=local
@@ -68,6 +73,8 @@ Setup the CronJob:
 Or just run the command:
 
 	php artisan Eventcron::run log_something --env=local
+
+__Note:__ If your CLI PHP doesn't have permissions to write to the log file just add "sudo php artisan ..." 
 	
 Thats it, the cron will fire all the __log_something__ events in the queue by [FIFO](http://en.wikipedia.org/wiki/FIFO) order.
 
@@ -76,26 +83,26 @@ You can also fire the events through a route (*which I don't recommend*). Just c
 	'run_only_from_cli' => false,
 	
 And then:
-
+```php
 	Route::get('fire', function()
 	{
 		EventCron::flushDB('log_something');
 	});
-	
+```	
 Notice you can pass a __date__ to the queue:
-
+```php
 	 EventCron::queueDB('log_something', array('FOOBAR', array('foo' => 'bar')), date("Y-m-d H:i:s", strtotime("+2 hours")));
-	 
+```
 ## API	 
 
 Add event to a queue:
-
+```php
 	EventCron::queueDB($name = "string", $args = array() [, $date = date("Y-m-d H:i:s")]);
-
+```
 Flush events from a queue:
-
+```php
 	EventCron::flushDB($name = "string");
-
+```
 ## Configurations
 
 __config.php__ (eventcron/config/config.php)
