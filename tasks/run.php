@@ -17,4 +17,10 @@ class Eventcron_Run_Task extends Task
 			EventCron::flushDB($queue);
 
 	}
+	
+	public function runall() 
+	{
+		Bundle::start('eventcron');
+ 		EventCron::flushDB();
+	}
 }
