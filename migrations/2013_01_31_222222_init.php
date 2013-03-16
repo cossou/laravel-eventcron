@@ -23,7 +23,7 @@ class EventCron_Init {
 			$table->string('started_at', 18);
 			$table->string('ended_at',   18);
 
-			$table->text('arguments')->default('');
+			$table->text('arguments');
 			$table->boolean('processed')->default(false);
 
 			$table->timestamps();
