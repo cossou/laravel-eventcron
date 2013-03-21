@@ -9,7 +9,7 @@ class Eventcron_Run_Task extends Task
 
 		if (empty($arguments)) 
 		{
-			echo "Please give at least on queue to execute!";
+			echo "Please give at least one queue to execute!";
 			return;
 		}
 
