@@ -78,6 +78,10 @@ __Note:__ If your CLI PHP doesn't have permissions to write to the log file just
 	
 Thats it, the cron will fire all the __log_something__ events in the queue by [FIFO](http://en.wikipedia.org/wiki/FIFO) order.
 
+If you want there is a method to run all the queues in the table:
+
+	php artisan Eventcron::run:runall --env=local
+
 You can also fire the events through a route (*which I don't recommend*). Just change the eventcron/config/config.php file to allow it:
 
 	'run_only_from_cli' => false,
